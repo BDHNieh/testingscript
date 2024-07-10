@@ -5,14 +5,7 @@ getgenv().worlds= {}
 getgenv().autoegg = false
 
 --mobs
-if  game:GetService("Workspace").Snow:FindFirstChild("EnemySpawners") 
-then for _,v in pairs(game:GetService("Workspace").Snow.EnemySpawners:GetChildren()) do
-	table.insert(mobs, v.Name) end
-else
 
-for _,v in pairs(game:GetService("Workspace").Worlds.DBZ.EnemySpawners:GetChildren()) do
-	table.insert(mobs, v.Name) end
-end
 --worlds
 for _,v in pairs(game:GetService("Workspace").Worlds:GetChildren()) do
 table.insert(worlds, v.Name)
@@ -25,11 +18,20 @@ local Window = OrionLib:MakeWindow({Name = "ACS | Remhub", HidePremium = false, 
 --functions
 function autoegg()
 	while getgenv().autoegg == true	do
-	local args = {
-		[1] = workspace:WaitForChild("Worlds"):WaitForChild("DBZ"):WaitForChild("DBZOrb"),
-		[2] = 1
-	}
-	game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Orbs"):WaitForChild("OpenOrbs"):FireServer(unpack(args))
+		function getNil(name,class) for _,v in next, getnilinstances() do if v.ClassName==class and v.Name==name then return v;end end end
+
+		local args = {
+			[1] = {
+				[1] = {
+					["Target"] = getNil("Marine1", "Model"),
+					["Damage"] = 526
+				}
+			},
+			[2] = "21"
+		}
+		
+		game:GetService("ReplicatedStorage"):WaitForChild("Remote"):WaitForChild("Player"):WaitForChild("Clicker"):FireServer(unpack(args))
+		
 	wait(0.0000000001)
 	end
 	end
